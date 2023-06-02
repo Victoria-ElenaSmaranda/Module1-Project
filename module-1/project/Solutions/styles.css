@@ -1,0 +1,111 @@
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.container {
+    padding: 20px;
+}
+
+/* Full-width input fields */
+input[type=text] {
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 30px;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+#grade {
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 30px;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+
+}
+#classroom {
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.addBtn {
+    position: initial;
+    background-color: #04aa15;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    opacity: 0.9;
+}
+
+.addBtn:hover {
+    opacity:1;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 40px;
+    margin-left: 10px;
+    max-width: 1000px;
+    text-align: center;
+}
+table th,
+.table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+.delete:hover{
+    opacity:1;
+}
+.delete {
+    padding: 10px 20px;
+    background-color: #e10b0b;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.update:hover{
+    opacity:1;
+}
+.update {
+    padding: 10px 20px;
+    background-color: #046aaa;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
