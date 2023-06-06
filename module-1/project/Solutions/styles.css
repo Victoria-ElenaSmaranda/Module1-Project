@@ -1,11 +1,11 @@
-* {box-sizing: border-box}
+* {
+    box-sizing: border-box
+}
 
-/* Add padding to containers */
 .container {
     padding: 20px;
 }
 
-/* Full-width input fields */
 input[type=text] {
     width: 50%;
     padding: 15px;
@@ -14,6 +14,7 @@ input[type=text] {
     border: none;
     background: #f1f1f1;
 }
+
 #grade {
     width: 50%;
     padding: 15px;
@@ -23,6 +24,7 @@ input[type=text] {
     background: #f1f1f1;
 
 }
+
 #classroom {
     width: 50%;
     padding: 15px;
@@ -43,7 +45,6 @@ hr {
     margin-bottom: 25px;
 }
 
-/* Set a style for the submit/register button */
 #add {
     position: initial;
     background-color: #04aa15;
@@ -57,7 +58,7 @@ hr {
 }
 
 #add:hover {
-    opacity:1;
+    opacity: 1;
 }
 
 
@@ -71,6 +72,7 @@ table {
     text-align: center;
 
 }
+
 table th,
 .table td {
     padding: 8px;
@@ -82,12 +84,13 @@ table th,
     font-weight: bold;
     text-align: center;
 }
-#delete:hover{
-    opacity:1;
+
+#delete:hover {
+    opacity: 1;
 }
 
-#update:hover{
-    opacity:1;
+#update:hover {
+    opacity: 1;
 }
 
 

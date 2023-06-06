@@ -67,6 +67,7 @@ function generateRegistrationNumber($name): string
     $registrationNumber .= date('YmdHis'); // Add timestamp for uniqueness
     return $registrationNumber;
 }
+
 // Redirect to edit page if registration number is provided
 if (isset($_GET['registrationNumber'])) {
     $registrationNumber = $_GET['registrationNumber'];
@@ -96,27 +97,27 @@ if (isset($_GET['registrationNumber'])) {
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" placeholder="Please enter the name of your student" required><br>
         <label for="grade">Grade:</label>
-            <select name="grade" id="grade"  required>
-                <option value="">Please select student's grade</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select><br>
+        <select name="grade" id="grade" required>
+            <option value="">Please select student's grade</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select><br>
         <label for="classroom">Classroom:</label>
-            <select name="classroom" id="classroom" required>
-                <option value="">Please select student's classroom</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Physics">Physics</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Informatics">Informatics</option>
-            </select>
+        <select name="classroom" id="classroom" required>
+            <option value="">Please select student's classroom</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Physics">Physics</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Informatics">Informatics</option>
+        </select>
         <button type="submit" name="addBtn" id="add">Add Student</button>
     </form>
 </div>
@@ -145,9 +146,9 @@ if (isset($_GET['registrationNumber'])) {
                     <td>
 
 
-
                         <form method="get" action="editPage.php">
-                            <input type="hidden" name="registrationNumber" value="<?php echo $student['registrationNumber']; ?>">
+                            <input type="hidden" name="registrationNumber"
+                                   value="<?php echo $student['registrationNumber']; ?>">
                             <button type="submit" name="update" id="update">Update</button>
                         </form>
                         <form method="post" action="studentEvidence.php">
