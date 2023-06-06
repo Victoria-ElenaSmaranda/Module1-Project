@@ -41,14 +41,17 @@ hr {
     margin-bottom: 25px;
 }
 
-.update {
+#save {
     position: initial;
-    background-color: #04aa0c;
+    background-color: #04aa15;
     color: white;
-    padding: 16px 20px;
+    padding: 10px 15px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 10%;
     opacity: 0.9;
+}
+#save:hover {
+    opacity: 1;
 }

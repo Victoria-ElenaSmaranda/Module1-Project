@@ -1,124 +1,126 @@
 <?php
-global $myStudents;
+declare(strict_types=1);
+
+$registrationNumber = $_GET['registrationNumber'] ?? '';
+$name = $_GET['name'] ?? '';
+$grade = $_GET['grade'] ?? '';
+$classroom = $_GET['classroom'] ?? '';
+
+// Retrieve the student's information based on the registration number
 $fileName = 'studentEvidence.txt';
-global $rowList;
-
-
-
-// Function to update student information
-
-    // open the file and read each row
+$studentInfo = [];
+if (file_exists($fileName)) {
     $handle = fopen($fileName, 'r');
     while ($row = fgets($handle)) {
         $rowList = explode(',', trim($row));
-        $myStudents[] = [
-            'registrationNumber' => $rowList[0],
-            'name' => $rowList[1],
-            'grade' => (int)$rowList[2],
-            'classroom' => $rowList[3],
-        ];
+        if ($rowList[0] === $registrationNumber) {
+            $studentInfo = [
+                'registrationNumber' => $rowList[0],
+                'name' => $rowList[1],
+                'grade' => (int)$rowList[2],
+                'classroom' => $rowList[3],
+            ];
+            break;
+        }
     }
     fclose($handle);
-
-if (isset($_POST['registrationNumber'])) {
-    $registrationNumber = $_POST['registrationNumber'];
-    $name = $_POST['name'];
-    $grade = $_POST['grade'];
-    $classroom = $_POST['classroom'];
-
-    $nameParts = explode(' ', $name);
-    $registrationNumber = '';
-    foreach ($nameParts as $part) {
-        $registrationNumber .= strtoupper(substr($part, 0, 1));
-
-        $registrationNumber .= date('YmdHis'); // Add timestamp for uniqueness
-
-
-    }
-    function updateStudent($updatedName, $updatedClassroom, $updatedGrade, $myStudents)
-    {
-
-
-        global $fileName;
-        $updatedName = 'updatedName';
-        $updatedClassroom = 'updatedClassroom';
-        $updatedGrade = 'updatedGrade';
-        $existingStudent = [
-            'name' => $updatedName,
-            'grade' => $updatedGrade,
-            'classroom' => $updatedClassroom,
-        ];
-
-
-        $handle = fopen($fileName, 'w');
-        $updatedStudent = [
-            'updatedName' => $updatedName,
-            'updatedGrade' => $updatedGrade,
-            'updatedClassroom' => $updatedClassroom,
-        ];
-        $row = implode(',', $updatedStudent);
-        fputs($handle, $row . PHP_EOL);
-        fclose($handle);
-
-        $myStudents[] = $updatedStudent;
-    }
 }
 
-// Call the updateStudent function
+// Redirect to the student evidence page if no student information is found
+if (empty($studentInfo)) {
+    header('Location: studentEvidence.php');
+    exit;
+}
+
+// Update student information
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $newName = $_POST['name'] ?? '';
+    $newGrade = $_POST['grade'] ?? '';
+    $newClassroom = $_POST['classroom'] ?? '';
+
+    // Validate and update the student information
+    $valid = true;
+
+    // Perform your validation here
 
 
+    if ($valid){
+        $handle = fopen($fileName, 'r+');
+        while ($row = fgets($handle)) {
+            $rowList = explode(',', trim($row));
+            if ($rowList[0] === $registrationNumber) {
+                $rowList[1] = $newName;
+                $rowList[2] = $newGrade;
+                $rowList[3] = $newClassroom;
+                $line = implode(',', $rowList) . PHP_EOL;
+                fseek($handle, -strlen($row), SEEK_CUR); // move the file pointer to the beginning of the line
+                fwrite($handle, $line);
+                break;
+            }
+        }
+        fclose($handle);
 
+        // Redirect to the student evidence page after updating the student information
+        header('Location: studentEvidence.php');
+        exit;
+    }
+}
 ?>
 
-
-
-
-
-<link rel="stylesheet" href="editStyle.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Page</title>
+    <meta name="description" content="Module 1 project">
+    <link rel="stylesheet" href="editStyle.css">
+</head>
 <div class="container">
-    <form name="update-student" method="post" action="studentEvidence.php">
-        <h2>Update student</h2>
-        <div class="mb-3">
-            <label for="registrationNumber">Registration number:
-                I want to keep displaying registration number and the name. registration number slot in update page it's not editable, but the name is.
-            </label>
+    <div id="edit-student" class="header">
+        <h2>Edit Student</h2>
+        <form name="edit-student" method="post" action="editPage.php?registrationNumber=<?php echo $registrationNumber; ?>">
+            <label for="registrationNumber">Registration Number:
+                <input type="text" name="registrationNumber" id="registrationNumber" value="<?php echo $registrationNumber; ?>" disabled>
+            </label><br>
             <label for="name">Name:
-            <input type="text" name="name" class="form-control" id="name" value="<?php echo $name; ?>">
-            <input type="hidden" name="registrationNumber" class="form-control" id="registrationNumber" value="<?php echo $registrationNumber; ?>">
-            </label>
-        </div>
-        <div class="mb-3">
-            <label for="grade">Grade:
-            <select id="grade" class="form-select" name="grade">
-                <option value="">Please select student's grade</option>
-                <?php for ($i = 0; $i <= 10; $i++) : ?>
-                    <option value="<?= $i ?>" <?php $selected = $grade == $i ?  "selected":""; echo $selected;?>><?= $i ?></option>
-                    <?php endfor; ?>
+                <input type="text" name="name" id="name" value="<?php echo $studentInfo['name']; ?>">
+            </label><br>
+            <label for="grade">Grade:</label>
+                <select name="grade" id="grade">
+                    <option value="<?php echo $studentInfo['grade']; ?>"><?php echo ($studentInfo['grade']); ?></option>
+                    <option value="1" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>1</option>
+                    <option value="2" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>2</option>
+                    <option value="3" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>3</option>
+                    <option value="4" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>4</option>
+                    <option value="5" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>5</option>
+                    <option value="6" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>6</option>
+                    <option value="7" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>7</option>
+                    <option value="8" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>8</option>
+                    <option value="9" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>9</option>
+                    <option value="10" <?php echo ($studentInfo['grade'] === ['grade']) ? 'selected' : ''; ?>>10</option>
+
+                </select>
+            <br>
+            <label for="classroom">Classroom: </label>
+            <select name="classroom" id="classroom">
+                <option value="<?php echo $studentInfo['classroom']; ?>"><?php echo ($studentInfo['classroom']); ?></option>
+                <option value="Mathematics" <?php echo ($studentInfo['classroom'] === 1) ? 'selected' : ''; ?>>Mathematics</option>
+                <option value="Physics" <?php echo ($studentInfo['classroom'] === 2) ? 'selected' : ''; ?>>Physics</option>
+                <option value="Chemistry" <?php echo ($studentInfo['classroom'] === 3) ? 'selected' : ''; ?>>Chemistry</option>
+                <option value="Informatics" <?php echo ($studentInfo['classroom'] === 4) ? 'selected' : ''; ?>>Informatics</option>
+
             </select>
-            </label>
-        </div>
-        <div class="mb-3">
-            <label for="classroom">Classroom:
-            <select id="classroom" class="form-select" name="classroom">
-                <option value="">Please select student's classroom</option>
-                <option value="Mathematics" <?php $selected = $classroom == "Mathematics" ?  "selected":""; echo $selected;?>>Mathematics</option>
-                <option value="Physics" <?php $selected = $classroom == "Physics" ?  "selected":""; echo $selected;?>>Physics</option>
-                <option value="Chemistry" <?php $selected = $classroom == "Chemistry" ?  "selected":""; echo $selected;?>>Chemistry</option>
-                <option value="Informatics" <?php $selected = $classroom == "Informatics" ?  "selected":""; echo $selected;?>>Informatics</option>
-            </select>
-            </label>
-        </div>
-            <button type="submit" name="edit-action" class="update" id="update">Update</button>
+                <br>
+            <button type="submit" id="save" value="Save">Save changes</button>
         </form>
-
-
+    </div>
 </div>
-<!--<script>-->
-<!--let buttonElement = document.getElementById("update");-->
-<!--buttonElement.addEventListener('click',() =>{-->
-<!--    let input = document.getElementById('name')-->
-<!---->
-<!--let alertString = input.value + '-' + '' + 'Student updated successfully!';-->
-<!--alert(alertString);-->
-<!--})-->
-<!--</script>-->
+<script>
+let buttonElement = document.getElementById("save");
+buttonElement.addEventListener('click',() =>{
+    let input = document.getElementById('name')
+
+let alertString = input.value + '-' + '' + 'Student updated successfully!';
+alert(alertString);
+})
+</script>
+

@@ -44,11 +44,11 @@ hr {
 }
 
 /* Set a style for the submit/register button */
-.addBtn {
+#add {
     position: initial;
     background-color: #04aa15;
     color: white;
-    padding: 16px 20px;
+    padding: 10px 15px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
@@ -56,7 +56,7 @@ hr {
     opacity: 0.9;
 }
 
-.addBtn:hover {
+#add:hover {
     opacity:1;
 }
 
@@ -69,6 +69,7 @@ table {
     margin-left: 10px;
     max-width: 1000px;
     text-align: center;
+
 }
 table th,
 .table td {
@@ -81,31 +82,14 @@ table th,
     font-weight: bold;
     text-align: center;
 }
-.delete:hover{
+#delete:hover{
     opacity:1;
 }
-.delete {
-    padding: 10px 20px;
-    background-color: #e10b0b;
-    color: #ffffff;
-    border: none;
-    border-radius: 3px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-.update:hover{
+
+#update:hover{
     opacity:1;
 }
-.update {
-    padding: 10px 20px;
-    background-color: #046aaa;
-    color: #ffffff;
-    border: none;
-    border-radius: 3px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 10px;
-}
+
+
 
 

@@ -1,4 +1,2 @@
-CT20230601170254,Costin Tataru,8,Physics
-,,0,
-,,0,
-
+CT20230606110431,Costin Tataru,5,Informatics
+VL20230606110827,Victoria Lazar,9,Chemistry
