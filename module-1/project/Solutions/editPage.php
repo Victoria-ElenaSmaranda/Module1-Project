@@ -40,11 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate and update the student information
     $valid = true;
-
-    // Perform your validation here
-
-
-    if ($valid){
+        if ($valid){
         $handle = fopen($fileName, 'r+');
         while ($row = fgets($handle)) {
             $rowList = explode(',', trim($row));
